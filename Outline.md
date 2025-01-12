@@ -337,8 +337,8 @@ void rightTurn() {
 
 > 小寄巧：冯诺依曼框图怎么画？
 >
-> 包含两个维度：信息与能量	
-> →信息：主要是输入（传感器等）、MCU（包括了控制、运算、存储）、输出（执行机构等等）	
+> 包含两个维度：**信息与能量**	
+> →信息：主要是输入（**传感器**等）、MCU（包括了**控制、运算、存储**）、输出（**执行机构**等等）	
 > →能量：为整个系统供能，可以框起来写外面：电源；连线即表示电缆
 >
 > <table frame=void>
@@ -346,6 +346,16 @@ void rightTurn() {
 >  <td><center><img src="img/8.png"
 >                   alt="None"
 >                   height="220"/></center></td>
+>  </tr>
+></table>
+>
+>  **实际上非常套路化，记住大体框架即可**
+> 
+> <table frame=void>
+>  <tr>
+>  <td><center><img src="img/i1.jpg"
+>                   alt="None"
+>                   height="290"/></center></td>
 >  </tr>
 > </table>
 
