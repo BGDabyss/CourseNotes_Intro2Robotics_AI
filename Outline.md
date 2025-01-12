@@ -66,6 +66,107 @@
 6.Arduino 是一个能够用来**<u>感应</u>**和**<u>控制</u>**现实物理世界的一套工具，是一个打包后的**<u>平台</u>**（而非仅仅是芯片）
    ·两个函数：**<u>setup</u>**（初始化）和**<u>loop</u>**（循环）
 
+> 小寄巧：
+> **如何编写简单的Arduino程序**
+> ~~加入浙江大学机器人协会，参与内训课程即可~~
+> >1. 宏定义：引脚的编号不便记忆，用宏定义替换为方便记忆的名称。
+> 常见宏名有：LED（led灯），LEFT（左轮），RIGHT（右轮）
+> eg.将13号引脚记为led:
+> #define LED 13
+> 
+> >2. setup函数：返回值类型为void（无返回值），只会在开始的时候运行一次（初始化）。
+> 
+> >3.  loop函数：同为void类型，会在setup（）之后不断循环进行，是Arduino程序的主函数。
+>
+> >4. pinMode函数：在setup()里需要设置输入输出引脚,格式为"pinMode(<引脚编号>,OUTPUT/INPUT);",其中引脚编号通常用宏替换。
+> eg.设置LED引脚为输出引脚:
+> pinMode(LED,OUTPUT);
+>
+> >5. digitalWrite函数：设置输出引脚的输出高/低电平，格式为"digitalWrite(<引脚编号>，HIGH/LOW);",其中引脚编号通常用宏替换。
+> eg.设置LED输出高电平(即点亮led)
+> digitalWrite(LED，HIGH);
+>
+> >6. delay函数：顾名思义，将上一个状态delay（延迟）一段时间再进入下一个状态。
+> eg.维持led点亮1s
+> digitalWrite(LED，HIGH);
+>delay(1000);//注意delay的单位是ms
+>
+> >7. **注意：**Arduino语言遵循c语言语法，所以注意别忘了在语句结尾加分号！
+> 
+以下是一个例子，可以思考一下小车是怎么运动的
+```c
+// 设置电机控制引脚
+#define motor1Pin1 3  // 左电机 IN1
+#define motor1Pin2 4  // 左电机 IN2
+#define motor2Pin1 5  // 右电机 IN3
+#define motor2Pin2 6  // 右电机 IN4
+
+void setup() {
+  // 设置电机控制引脚为输出模式
+  pinMode(motor1Pin1, OUTPUT);
+  pinMode(motor1Pin2, OUTPUT);
+  pinMode(motor2Pin1, OUTPUT);
+  pinMode(motor2Pin2, OUTPUT);
+}
+
+void loop() {
+  // 小车前进
+  forward();
+  delay(2000); // 前进 2 秒
+  
+  // 小车后退
+  backward();
+  delay(2000); // 后退 2 秒
+  
+  // 小车左转
+  leftTurn();
+  delay(2000); // 左转 2 秒
+  
+  // 小车右转
+  rightTurn();
+  delay(2000); // 右转 2 秒
+}
+
+// 小车前进
+void forward() {
+  digitalWrite(motor1Pin1, HIGH);  // 左电机前进
+  digitalWrite(motor1Pin2, LOW);
+  digitalWrite(motor2Pin1, HIGH);  // 右电机前进
+  digitalWrite(motor2Pin2, LOW);
+}
+
+// 小车后退
+void backward() {
+  digitalWrite(motor1Pin1, LOW);   // 左电机后退
+  digitalWrite(motor1Pin2, HIGH);
+  digitalWrite(motor2Pin1, LOW);   // 右电机后退
+  digitalWrite(motor2Pin2, HIGH);
+}
+
+// 小车左转
+void leftTurn() {
+  digitalWrite(motor1Pin1, LOW);   // 左电机后退
+  digitalWrite(motor1Pin2, HIGH);
+  digitalWrite(motor2Pin1, HIGH);  // 右电机前进
+  digitalWrite(motor2Pin2, LOW);
+}
+
+// 小车右转
+void rightTurn() {
+  digitalWrite(motor1Pin1, HIGH);  // 左电机前进
+  digitalWrite(motor1Pin2, LOW);
+  digitalWrite(motor2Pin1, LOW);   // 右电机后退
+  digitalWrite(motor2Pin2, HIGH);
+}
+```
+答案是：
+小车会先前进 2 秒。
+然后后退 2 秒。
+接着左转 2 秒。
+最后右转 2 秒。
+
+会读以后，你还要会写这个程序。
+
 7.**<u>PWM脉宽调制</u>**：用改变电机电枢电压接通与断开的时间占空比来控制电机转速的方法
 
 > 例：如何实现让LED灯不闪烁，但是亮度只有正常亮度的20%，请写出关键指令: 
